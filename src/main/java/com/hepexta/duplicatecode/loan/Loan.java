@@ -1,6 +1,5 @@
 package com.hepexta.duplicatecode.loan;
 
-import com.hepexta.duplicatecode.loan.strategy.CapitalStrategy;
 import com.hepexta.duplicatecode.loan.strategy.LoanStrategy;
 import com.hepexta.duplicatecode.loan.strategy.RevolvingTermROC;
 import com.hepexta.duplicatecode.loan.strategy.TermROC;
@@ -17,23 +16,14 @@ public class Loan {
     private Date maturity;
 
     public Loan(float notional, float outstanding, int rating, Date expiry) {
-        this.strategy = new TermROC();
-        this.notional = notional;
-        this.outstanding = outstanding;
-        this.rating =rating;
-        this.expiry = expiry;
+        this(new TermROC(), notional, outstanding, rating, expiry, null);
     }
 
     public Loan(float notional, float outstanding, int rating, Date expiry, Date maturity) {
-        this.strategy = new RevolvingTermROC();
-        this.notional = notional;
-        this.outstanding = outstanding;
-        this.rating = rating;
-        this.expiry = expiry;
-        this.maturity = maturity;
+        this(new RevolvingTermROC(), notional, outstanding, rating, expiry, maturity);
     }
 
-    public Loan(CapitalStrategy strategy, float notional, float outstanding,
+    public Loan(LoanStrategy strategy, float notional, float outstanding,
                 int rating, Date expiry, Date maturity) {
         this.strategy = strategy;
         this.notional = notional;
