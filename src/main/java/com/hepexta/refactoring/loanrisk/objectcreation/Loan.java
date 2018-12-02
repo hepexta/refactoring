@@ -1,8 +1,8 @@
-package com.hepexta.duplicatecode.loan;
+package com.hepexta.refactoring.loanrisk.objectcreation;
 
-import com.hepexta.duplicatecode.loan.strategy.LoanStrategy;
-import com.hepexta.duplicatecode.loan.strategy.RevolvingTermROC;
-import com.hepexta.duplicatecode.loan.strategy.TermROC;
+import com.hepexta.refactoring.loanrisk.objectcreation.strategy.LoanStrategy;
+import com.hepexta.refactoring.loanrisk.objectcreation.strategy.RevolvingTermROC;
+import com.hepexta.refactoring.loanrisk.objectcreation.strategy.TermROC;
 
 import java.util.Date;
 

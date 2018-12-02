@@ -1,8 +1,8 @@
-package com.hepexta.duplicatecode.loan;
+package com.hepexta.refactoring.loanrisk.objectcreation;
 
-import com.hepexta.duplicatecode.loan.strategy.CapitalStrategy;
-import com.hepexta.duplicatecode.loan.strategy.RevolvingTermROC;
-import com.hepexta.duplicatecode.loan.strategy.TermROC;
+import com.hepexta.refactoring.loanrisk.objectcreation.strategy.CapitalStrategy;
+import com.hepexta.refactoring.loanrisk.objectcreation.strategy.RevolvingTermROC;
+import com.hepexta.refactoring.loanrisk.objectcreation.strategy.TermROC;
 import org.junit.Assert;
 import org.junit.Test;
 
