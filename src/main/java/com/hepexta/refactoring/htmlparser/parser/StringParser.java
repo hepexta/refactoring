@@ -2,7 +2,8 @@ package com.hepexta.refactoring.htmlparser.parser;
 
 import com.hepexta.refactoring.htmlparser.Node;
 import com.hepexta.refactoring.htmlparser.NodeReader;
-import com.hepexta.refactoring.htmlparser.StringNode;
+import com.hepexta.refactoring.htmlparser.NodeFactory;
+import com.hepexta.refactoring.htmlparser.Parser;
 
 public class StringParser {
 
@@ -14,6 +15,8 @@ public class StringParser {
         StringBuffer textBuffer = new StringBuffer();
         int textBegin = position;
         int textEnd = position;
-        return StringNode.createStringNode(textBuffer, textBegin, textEnd, balance_quotes);
+        Parser parser = new Parser();
+        NodeFactory nodeFactory = parser.getNodeFactory();
+        return nodeFactory.createStringNode(textBuffer, textBegin, textEnd);
     }
 }

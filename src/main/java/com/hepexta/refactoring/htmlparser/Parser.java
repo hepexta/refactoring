@@ -1,7 +1,5 @@
 package com.hepexta.refactoring.htmlparser;
 
-import com.hepexta.refactoring.htmlparser.parser.ParserHelper;
-
 import java.io.*;
 import java.net.URLConnection;
 
@@ -16,6 +14,8 @@ public class Parser implements Serializable {
 
     boolean shouldDecodeNodes;
     boolean shouldRemoveEscapeCharacters;
+
+    private NodeFactory nodeFactory;
 
     public Parser() {
         resourceLocn = null;
@@ -52,5 +52,13 @@ public class Parser implements Serializable {
 
     public void setShouldRemoveEscapeCharacters(boolean shouldRemoveEscapeCharacters) {
         this.shouldRemoveEscapeCharacters = shouldRemoveEscapeCharacters;
+    }
+
+    public NodeFactory getNodeFactory() {
+        return nodeFactory;
+    }
+
+    public void setNodeFactory(NodeFactory nodeFactory) {
+        this.nodeFactory = nodeFactory;
     }
 }

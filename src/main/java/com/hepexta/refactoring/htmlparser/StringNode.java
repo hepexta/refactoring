@@ -7,10 +7,6 @@ public class StringNode extends Node {
     public static final String STRING_FILTER = "-string";
     protected StringBuffer textBuffer;
 
-    public static StringNode createStringNode(StringBuffer textBuffer, int textBegin, int textEnd, boolean isDecoded) {
-        return isDecoded ? new DecodedStringNode(textBuffer, textBegin, textEnd) : new StringNode(textBuffer, textBegin, textEnd);
-    }
-
     public StringNode(StringBuffer textBuffer, int textBegin, int textEnd) {
         super(textBegin, textEnd);
         this.textBuffer = textBuffer;
