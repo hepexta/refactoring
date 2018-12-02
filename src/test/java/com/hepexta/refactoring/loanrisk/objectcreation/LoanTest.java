@@ -21,7 +21,7 @@ public class LoanTest {
 
     @Test
     public void whenLoanConstructorNoMaturity_thanStrategyTermROC() {
-        Loan loan = new Loan(NOTIONAL, OUTSTANDING, RATING, EXPIRY);
+        Loan loan = Loan.createTermLoan(NOTIONAL, OUTSTANDING, RATING, EXPIRY);
         Assert.assertEquals(NOTIONAL, loan.getNotional(), 0);
         Assert.assertEquals(OUTSTANDING, loan.getOutstanding(), 0);
         Assert.assertEquals(RATING, loan.getRating());
@@ -32,7 +32,7 @@ public class LoanTest {
 
     @Test
     public void whenLoanConstructorWithMaturity_thanStrategyRevolvingTermROC() {
-        Loan loan = new Loan(NOTIONAL, OUTSTANDING, RATING, EXPIRY, MATURITY);
+        Loan loan = Loan.createRevolvingTermLoan(NOTIONAL, OUTSTANDING, RATING, EXPIRY, MATURITY);
         Assert.assertEquals(NOTIONAL, loan.getNotional(), 0);
         Assert.assertEquals(OUTSTANDING, loan.getOutstanding(), 0);
         Assert.assertEquals(RATING, loan.getRating());
