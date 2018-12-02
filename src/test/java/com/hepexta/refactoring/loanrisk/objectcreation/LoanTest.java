@@ -8,6 +8,9 @@ import org.junit.Test;
 
 import java.util.Date;
 
+/*
+* Tests represents client side
+* */
 public class LoanTest {
 
     private final static float NOTIONAL = 1f;
