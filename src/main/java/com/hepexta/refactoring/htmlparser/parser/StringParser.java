@@ -14,6 +14,6 @@ public class StringParser {
         StringBuffer textBuffer = new StringBuffer();
         int textBegin = position;
         int textEnd = position;
-        return new StringNode(textBuffer, textBegin, textEnd);
+        return StringNode.createStringNode(textBuffer, textBegin, textEnd, balance_quotes);
     }
 }
