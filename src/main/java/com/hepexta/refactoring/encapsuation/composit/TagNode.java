@@ -1,5 +1,7 @@
 package com.hepexta.refactoring.encapsuation.composit;
 
+import com.hepexta.refactoring.creational.htmlparser.node.Node;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,5 +39,13 @@ public class TagNode {
 
     private void setParent(TagNode tagNode) {
         this.parent = tagNode;
+    }
+
+    public TagNode getParent() {
+        return this.parent;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }
