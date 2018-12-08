@@ -1,19 +1,20 @@
 package com.hepexta.refactoring.creational.htmlparser;
 
+import com.hepexta.refactoring.creational.htmlparser.factory.NodeFactory;
+
 public class Parser {
 
-    boolean shouldDecode;
+    private NodeFactory nodeFactory;
 
     public String parse(){
-        return StringParser.createStringNode(this).getName();
+        return nodeFactory.createStringNode().getName();
     }
 
-    public boolean shouldDecode() {
-        return shouldDecode;
+    public NodeFactory getNodeFactory() {
+        return nodeFactory;
     }
 
-    public void setShouldDecode(boolean shouldDecode) {
-        this.shouldDecode = shouldDecode;
+    public void setNodeFactory(NodeFactory nodeFactory) {
+        this.nodeFactory = nodeFactory;
     }
-
 }
