@@ -1,4 +1,4 @@
-package com.hepexta.refactoring.descriptors;
+package com.hepexta.refactoring.encapsuation.descriptors;
 
 public class DefaultDescriptor extends AttributeDescriptor {
 

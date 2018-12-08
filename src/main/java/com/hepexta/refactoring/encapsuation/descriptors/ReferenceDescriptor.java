@@ -1,4 +1,4 @@
-package com.hepexta.refactoring.descriptors;
+package com.hepexta.refactoring.encapsuation.descriptors;
 
 public class ReferenceDescriptor extends AttributeDescriptor {
 
