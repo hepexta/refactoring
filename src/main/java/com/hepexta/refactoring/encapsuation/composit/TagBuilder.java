@@ -14,12 +14,15 @@ public class TagBuilder {
     }
 
     public void addChild(String childTagName) {
-        TagNode parentNode = currentNode;
-        currentNode = new TagNode(childTagName);
-        parentNode.add(currentNode);
+        addTo(this.currentNode, childTagName);
     }
 
     public void addSibling(String siblingTagName) {
-        rootNode.add(new TagNode(siblingTagName));
+        addTo(this.currentNode.getParent(), siblingTagName);
+    }
+
+    private void addTo(TagNode parentNode, String tagName) {
+        currentNode = new TagNode(tagName);
+        parentNode.add(currentNode);
     }
 }

@@ -1,7 +1,5 @@
 package com.hepexta.refactoring.encapsuation.composit;
 
-import com.hepexta.refactoring.creational.htmlparser.node.Node;
-
 import java.util.ArrayList;
 import java.util.List;
 
