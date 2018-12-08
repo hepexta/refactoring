@@ -9,6 +9,8 @@ public class TagNode {
     private String value = "";
     private final StringBuffer attributes;
     private final List<TagNode> children;
+    private TagNode parent;
+
     public TagNode(String name) {
         this.name = name;
         this.attributes = new StringBuffer("");
@@ -26,5 +28,14 @@ public class TagNode {
         result.append(value);
         result.append("</").append(name).append(">");
         return result.toString();
+    }
+
+    public void add(TagNode node) {
+        node.setParent(this);
+        this.children.add(node);
+    }
+
+    private void setParent(TagNode tagNode) {
+        this.parent = tagNode;
     }
 }

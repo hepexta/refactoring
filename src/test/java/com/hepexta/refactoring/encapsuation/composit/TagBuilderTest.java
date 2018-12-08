@@ -9,8 +9,14 @@ public class TagBuilderTest {
     @Test
     public void testBuildOneNode() {
         String expectedXml =
-                "<flavors></flavors>";
-        String actualXml = new TagBuilder("flavors").toXml();
+                "<flavors>" +
+                    "<flavor>" +
+                    "</flavor>" +
+                "</flavors>";
+
+        TagBuilder builder = new TagBuilder("flavors");
+        builder.addChild("flavor");
+        String actualXml = builder.toXml();
         assertEquals(expectedXml, actualXml);
     }
 }
