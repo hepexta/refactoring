@@ -46,4 +46,12 @@ public class TagNode {
     public String getName() {
         return this.name;
     }
+
+    public void addAttribute(String name, String value) {
+        attributes.append(" ").append(name).append("=").append("'").append(value).append("'");
+    }
+
+    public void addValue(String value) {
+        this.value = value;
+    }
 }
