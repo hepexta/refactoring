@@ -11,6 +11,17 @@ public class ComplexObject {
     private boolean highlight;
 
     public String paintCard(Graphics g) {
+        printCardImage(g);
+        if (shouldHighlight())
+            return paintCardHighlight(g);
+        return paintCardText(g);
+    }
+
+    private void printCardImage(Graphics g) {
+        g.drawImage(findImage());
+    }
+
+    private Image findImage() {
         Image image = null;
         if (card.getType().equals("Problem")) {
             image = explanations.getGameUI().problem;
@@ -19,11 +30,7 @@ public class ComplexObject {
         } else if (card.getType().equals("Value")) {
             image = explanations.getGameUI().value;
         }
-        g.drawImage(image);
-
-        if (shouldHighlight())
-            return paintCardHighlight(g);
-        return paintCardText(g);
+        return image;
     }
 
     private String paintCardText(Graphics g) {
