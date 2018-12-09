@@ -67,4 +67,42 @@ public class TagBuilderTest {
         assertEquals(root, childNode.getParent());
         assertEquals("root", childNode.getParent().getName());
     }
+
+    @Test
+    public void testRepeatingChildrenAndGrandchildren() {
+        String expectedXml =
+                "<flavors>"+
+                    "<flavor>" +
+                        "<requirements>" +
+                            "<requirement>" +
+                            "</requirement>" +
+                        "</requirements>" +
+                    "</flavor>" +
+                    "<flavor>" +
+                        "<requirements>" +
+                            "<requirement>" +
+                            "</requirement>" +
+                        "</requirements>" +
+                    "</flavor>" +
+                "</flavors>";
+
+        TagBuilder builder = new TagBuilder("flavors");
+        for (int i=0; i<2; i++) {
+            builder.addToParent("flavors", "flavor");
+                builder.addChild("requirements");
+                    builder.addChild("requirement");
+        }
+
+        assertEquals(expectedXml, builder.toXml());
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testParentNameNotFound() {
+        TagBuilder builder = new TagBuilder("flavors");
+        for (int i=0; i<2; i++) {
+            builder.addToParent("notFound", "flavor");
+            builder.addChild("requirements");
+            builder.addChild("requirement");
+        }
+    }
 }
