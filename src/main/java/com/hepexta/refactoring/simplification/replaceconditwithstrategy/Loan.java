@@ -45,15 +45,6 @@ public class Loan {
         return 0.0;
     }
 
-    private double outstandingRiskAmount() {
-        return outstanding;
-    }
-
-
-    private double unusedRiskAmount() {
-        return (commitment - outstanding);
-    }
-
     public double duration() {
         if (expiry == null && maturity != null)
             return weightedAverageDuration();
@@ -89,6 +80,15 @@ public class Loan {
     private double unusedRiskFactor() {
         return riskRating;
     }
+
+    private double outstandingRiskAmount() {
+        return outstanding;
+    }
+
+    private double unusedRiskAmount() {
+        return (commitment - outstanding);
+    }
+
 
     private float getUnusedPercentage() {
         return 4;
