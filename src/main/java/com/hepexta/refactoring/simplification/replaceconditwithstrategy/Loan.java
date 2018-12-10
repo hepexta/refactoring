@@ -1,8 +1,6 @@
 package com.hepexta.refactoring.simplification.replaceconditwithstrategy;
 
-import com.hepexta.refactoring.loanrisk.objectcreation.strategy.LoanStrategy;
-import com.hepexta.refactoring.loanrisk.objectcreation.strategy.TermROC;
-import com.hepexta.refactoring.simplification.replaceconditwithstrategy.strategy.CapitalStrategy;
+import com.hepexta.refactoring.simplification.replaceconditwithstrategy.strategy.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,22 +8,22 @@ import java.util.List;
 
 public class Loan {
 
-
     private final double commitment;
     private final double outstanding;
-    private final Date expiry = null;
     private final LoanStrategy strategy;
     private Date start;
     private Date maturity;
+    private Date expiry;
     private List<Payment> payments = new ArrayList<>();
 
     private double riskRating;
     private CapitalStrategy capitalStrategy;
 
-    public Loan(LoanStrategy strategy, double commitment, Date start, Date maturity, double highRiskRating, CapitalStrategy capitalStrategy) {
+    public Loan(LoanStrategy strategy, double commitment, Date start, Date maturity, Date expiry, double highRiskRating, CapitalStrategy capitalStrategy) {
         this.riskRating = highRiskRating;
         this.maturity = maturity;
         this.start = start;
+        this.expiry = expiry;
         this.strategy = strategy;
         this.commitment = commitment;
         this.outstanding = 1;
@@ -33,11 +31,14 @@ public class Loan {
     }
 
     public static Loan newTermLoan(double amount, Date start, Date maturity, double highRiskRating) {
-        return new Loan(new TermROC(), amount, start, maturity, highRiskRating, new CapitalStrategy());
+        return new Loan(new TermROC(), amount, start, maturity, null, highRiskRating, new CapitalStrategyTermLoan());
+    }
+
+    public static Loan newRevolver(double commitment, Date start, Date expiry, double riskRating) {
+        return new Loan(new Resolver(), commitment, start, null, expiry, riskRating, new CapitalStrategyRevolver());
     }
 
     public double capital() {
-
         return capitalStrategy.capital(this);
     }
 
