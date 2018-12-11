@@ -38,4 +38,21 @@ public class SystemPermissionTest {
         assertEquals("granted", SystemPermission.DENIED, permission.state());
         assertFalse("granted", permission.isGranted());
     }
+
+    @Test
+    public void testUnixDeniedBy() {
+        SystemProfile profile = SystemProfile.createUnixProfile();
+        permission = new SystemPermission(user, profile);
+        permission.grantedBy(admin);
+        assertEquals("requested", SystemPermission.REQUESTED, permission.state());
+        assertFalse("not granted", permission.isGranted());
+        permission.claimedBy(admin);
+        permission.grantedBy(admin);
+        assertEquals("granted", SystemPermission.UNIX_REQUESTED, permission.state());
+        assertFalse("granted", permission.isGranted());
+        permission.claimedBy(admin);
+        permission.grantedBy(admin);
+        assertEquals("granted", SystemPermission.GRANTED, permission.state());
+        assertTrue("granted", permission.isGranted());
+    }
 }
