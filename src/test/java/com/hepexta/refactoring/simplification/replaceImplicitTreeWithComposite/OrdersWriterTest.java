@@ -3,7 +3,12 @@ package com.hepexta.refactoring.simplification.replaceImplicitTreeWithComposite;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class OrdersWriterTest {
+
+    private static final String SAMPLE_PRICE = "8.95";
+
     @Test
     public void testOneOrderWithTwoProducts() {
         String expectedResult =
@@ -11,7 +16,7 @@ public class OrdersWriterTest {
                     "<order id=’321’>" +
                         "<product id=’f1234’ color=’red’ size=’medium’>" +
                             "<price currency=’USD’>" +
-                            "8.95" +
+                                SAMPLE_PRICE +
                             "</price>" +
                             "Fire Truck" +
                         "</product>" +
@@ -29,7 +34,18 @@ public class OrdersWriterTest {
         order.addProduct(prepareProduct("p1112", "red", "Toy Porsche Convertible", new Price("USD", 230f), null));
         orders.placeOrder(order);
         OrdersWriter writer = new OrdersWriter(orders);
-        Assert.assertEquals(expectedResult, writer.getContents());
+        assertEquals(expectedResult, writer.getContents());
+    }
+
+    @Test
+    public void testSimpleTagWithOneAttributeAndValue() {
+        TagNode priceTag = new TagNode("price");
+        priceTag.addAttribute("currency", "USD");
+        priceTag.addValue(SAMPLE_PRICE);
+        String expected = "<price currency=’USD’>" +
+                            SAMPLE_PRICE +
+                        "</price>";
+        assertEquals("price XML", expected, priceTag.toString());
     }
 
     private Product prepareProduct(String id, String color, String name, Price price, String size) {
