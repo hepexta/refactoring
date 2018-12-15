@@ -48,6 +48,36 @@ public class OrdersWriterTest {
         assertEquals("price XML", expected, priceTag.toString());
     }
 
+    @Test
+    public void testCompositeTagOneChild() {
+        TagNode productTag = new TagNode("product");
+        productTag.add(new TagNode("price"));
+        String expected =
+                "<product>" +
+                    "<price>" +
+                    "</price>" +
+                "</product>";
+        assertEquals("price XML", expected, productTag.toString());
+    }
+
+    @Test
+    public void testAddingChildrenAndGrandchildren() {
+        String expected =
+                "<orders>" +
+                    "<order>" +
+                    "<product>" +
+                    "</product>" +
+                    "</order>" +
+                "</orders>";
+
+        TagNode ordersTag = new TagNode("orders");
+        TagNode orderTag = new TagNode("order");
+        TagNode productTag = new TagNode("product");
+        ordersTag.add(orderTag);
+        orderTag.add(productTag);
+        assertEquals("price XML", expected, ordersTag.toString());
+    }
+
     private Product prepareProduct(String id, String color, String name, Price price, String size) {
         return Product.newBuilder()
                 .setColor(color)
