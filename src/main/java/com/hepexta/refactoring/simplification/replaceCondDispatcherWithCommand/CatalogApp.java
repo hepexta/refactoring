@@ -1,70 +1,30 @@
 package com.hepexta.refactoring.simplification.replaceCondDispatcherWithCommand;
 
-import java.util.Iterator;
+import com.hepexta.refactoring.simplification.replaceCondDispatcherWithCommand.command.AllWorkshopHandler;
+import com.hepexta.refactoring.simplification.replaceCondDispatcherWithCommand.command.DefWorkshopHandler;
+import com.hepexta.refactoring.simplification.replaceCondDispatcherWithCommand.command.NewWorkshopHandler;
+
 import java.util.Map;
 
 public class CatalogApp {
 
     private static final String NEW_WORKSHOP = "NEW_WORKSHOP";
-    private static final String ALL_WORKSHOPS = "ALL_WORKSHOPS";
-    private static final String ALL_WORKSHOPS_STYLESHEET = "ALL_WORKSHOPS_STYLESHEET";
+    public static final String ALL_WORKSHOPS = "ALL_WORKSHOPS";
     private WorkshopManager workshopManager = new WorkshopManager();
 
-    private HandlerResponse executeActionAndGetResponse(String actionName, Map parameters) {
-        HandlerResponse response;
+    public HandlerResponse executeActionAndGetResponse(String actionName, Map parameters) {
         if (actionName.equals(NEW_WORKSHOP)) {
-            response = getNewWorkshopResponse(parameters);
+            return new NewWorkshopHandler(this).getNewWorkshopResponse(parameters);
         } else if (actionName.equals(ALL_WORKSHOPS)) {
-            response = getAllWorkshopsResponse();
+            return new AllWorkshopHandler(this).getAllWorkshopsResponse();
         }
         else {
-            response = getDefaultHandlerResponse();
+            return new DefWorkshopHandler().getNewWorkshopResponse(parameters);
         }
-        return response;
     }
 
-    private HandlerResponse getDefaultHandlerResponse() {
-        HandlerResponse response;
-        response = new HandlerResponse(
-                new StringBuffer(),
-                ALL_WORKSHOPS
-        );
-        return response;
+    public WorkshopManager getWorkshopManager() {
+        return workshopManager;
     }
 
-    private HandlerResponse getAllWorkshopsResponse() {
-        HandlerResponse response;
-        StringBuilder allWorkshopsXml = new StringBuilder();
-        Iterator ids = workshopManager.getWorkshopRepository().iterator();
-        while (ids.hasNext()) {
-            allWorkshopsXml.append("workshop");
-            allWorkshopsXml.append("id");
-            allWorkshopsXml.append("name");
-            allWorkshopsXml.append("status");
-            allWorkshopsXml.append("duration");
-        }
-        String formattedXml = getFormattedData(allWorkshopsXml.toString());
-        response = new HandlerResponse(
-                new StringBuffer(formattedXml),
-                ALL_WORKSHOPS_STYLESHEET
-        );
-        return response;
-    }
-
-    private HandlerResponse getNewWorkshopResponse(Map parameters) {
-        String nextWorkshopID = workshopManager.getNextWorkshopID();
-        StringBuffer newWorkshopContents =
-                workshopManager.createNewFileFromTemplate(
-                        nextWorkshopID,
-                        workshopManager.getWorkshopDir(),
-                        workshopManager.getWorkshopTemplate()
-                );
-        workshopManager.addWorkshop(newWorkshopContents);
-        parameters.put("id", nextWorkshopID);
-        return executeActionAndGetResponse(ALL_WORKSHOPS, parameters);
-    }
-
-    private String getFormattedData(String s) {
-        return s;
-    }
 }
