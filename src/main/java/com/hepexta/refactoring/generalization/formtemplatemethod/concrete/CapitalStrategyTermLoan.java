@@ -1,0 +1,22 @@
+package com.hepexta.refactoring.generalization.formtemplatemethod.concrete;
+
+import com.hepexta.refactoring.generalization.formtemplatemethod.CapitalStrategy;
+import com.hepexta.refactoring.generalization.formtemplatemethod.Loan;
+
+public class CapitalStrategyTermLoan extends CapitalStrategy {
+    @Override
+    public double capital(Loan loan) {
+        return loan.getCommitment() * duration(loan) * riskFactorFor(loan);
+    }
+
+    private double riskFactorFor(Loan loan) {
+        return loan.getRiskFactor();
+    }
+
+    protected double duration(Loan loan) {
+        return weightedAverageDuration(loan);
+    }
+    private double weightedAverageDuration(Loan loan){
+        return loan.getAverageDuration();
+    }
+}
