@@ -11,3 +11,5 @@ Benefits and Liabilities
 +  Eliminates duplicated child-storage and child-handling logic.
 
 +  Effectively communicates that child-handling logic may be inherited. 
+
+[Example](https://github.com/gunya/refactoring/pull/10/files)
