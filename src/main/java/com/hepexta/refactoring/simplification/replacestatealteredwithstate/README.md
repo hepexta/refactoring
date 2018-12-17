@@ -13,3 +13,5 @@ Benefits and Liabilities
 +  Provides a good bird’s-eye view of state-changing logic.
 
 –  _Complicates a design when state transition logic is already easy to follow._
+
+[Example](https://github.com/gunya/refactoring/pull/9/files)
