@@ -14,3 +14,5 @@ Benefits and Liabilities
 +  Simplifies construction responsibilities of a client.
 
 –  Complicates a design when it’s simpler to construct implicit trees.
+
+[Example](https://github.com/gunya/refactoring/pull/12/files)
