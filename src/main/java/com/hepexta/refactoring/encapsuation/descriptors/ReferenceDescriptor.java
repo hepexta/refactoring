@@ -12,4 +12,8 @@ public class ReferenceDescriptor extends AttributeDescriptor {
         super(name, parent, objectClass);
         this.stringClass = stringClass;
     }
+
+    public static ReferenceDescriptor forObject(String name, Class parent, Class<String> stringClass) {
+        return new ReferenceDescriptor(name, parent, Object.class, stringClass);
+    }
 }

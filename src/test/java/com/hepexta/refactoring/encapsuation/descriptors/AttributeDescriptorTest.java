@@ -15,14 +15,42 @@ public class AttributeDescriptorTest {
         Assert.assertEquals(6, descriptors.size());
     }
 
+    @Test
+    public void test_DefaultDescriptor_integer() {
+        String name = "remoteId";
+        AttributeDescriptor integerDescriptor = DefaultDescriptor.forInteger(name, getClass());
+        Assert.assertEquals(name, integerDescriptor.getName());
+        Assert.assertEquals(Integer.TYPE, integerDescriptor.getType());
+        Assert.assertEquals(getClass(), integerDescriptor.getParentType());
+    }
+
+    @Test
+    public void test_DefaultDescriptor_date() {
+        String name = "createdDate";
+        AttributeDescriptor integerDescriptor = DefaultDescriptor.forDate(name, getClass());
+        Assert.assertEquals(name, integerDescriptor.getName());
+        Assert.assertEquals(Date.class, integerDescriptor.getType());
+        Assert.assertEquals(getClass(), integerDescriptor.getParentType());
+    }
+
+    @Test
+    public void test_ReferenceDescriptor() {
+        String name = "createdBy";
+        AttributeDescriptor integerDescriptor = ReferenceDescriptor.forObject(name, getClass(), String.class);
+        Assert.assertEquals(name, integerDescriptor.getName());
+        Assert.assertEquals(Object.class, integerDescriptor.getType());
+        Assert.assertEquals(getClass(), integerDescriptor.getParentType());
+    }
+
     private List<AttributeDescriptor> createAttributeDescriptors() {
         List<AttributeDescriptor> result = new ArrayList<>();
-        result.add(new DefaultDescriptor("remoteId", getClass(), Integer.TYPE));
-        result.add(new DefaultDescriptor("createdDate", getClass(), Date.class));
-        result.add(new DefaultDescriptor("lastChangedDate", getClass(), Date.class));
-        result.add(new ReferenceDescriptor("createdBy", getClass(), Object.class, String.class));
-        result.add(new DefaultDescriptor("optimisticLockVersion", getClass(), Integer.TYPE));
-        result.add(new BooleanDescriptor("isColor", getClass()));
+        result.add(AttributeDescriptor.forInteger("remoteId", getClass()));
+        result.add(AttributeDescriptor.forDate("createdDate", getClass()));
+        result.add(AttributeDescriptor.forDate("lastChangedDate", getClass()));
+        result.add(ReferenceDescriptor.forObject("createdBy", getClass(), String.class));
+        result.add(AttributeDescriptor.forInteger("optimisticLockVersion", getClass()));
+        result.add(AttributeDescriptor.forBoolean("isColor", getClass()));
         return result;
     }
+
 }

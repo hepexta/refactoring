@@ -1,5 +1,6 @@
 package com.hepexta.refactoring.simplification.replacestatealteredwithstate;
 
+import com.hepexta.refactoring.simplification.replacestatealteredwithstate.state.PermissionState;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,22 +21,22 @@ public class SystemPermissionTest {
     @Test
     public void testGrantedBy() {
         permission.grantedBy(admin);
-        assertEquals("requested", SystemPermission.REQUESTED, permission.state());
+        assertEquals("requested", PermissionState.REQUESTED, permission.state());
         assertFalse("not granted", permission.isGranted());
         permission.claimedBy(admin);
         permission.grantedBy(admin);
-        assertEquals("granted", SystemPermission.GRANTED, permission.state());
+        assertEquals("granted", PermissionState.GRANTED, permission.state());
         assertTrue("granted", permission.isGranted());
     }
 
     @Test
     public void testDeniedBy() {
         permission.grantedBy(admin);
-        assertEquals("requested", SystemPermission.REQUESTED, permission.state());
+        assertEquals("requested", PermissionState.REQUESTED, permission.state());
         assertFalse("not granted", permission.isGranted());
         permission.claimedBy(admin);
         permission.deniedBy(admin);
-        assertEquals("granted", SystemPermission.DENIED, permission.state());
+        assertEquals("granted", PermissionState.DENIED, permission.state());
         assertFalse("granted", permission.isGranted());
     }
 
@@ -44,15 +45,15 @@ public class SystemPermissionTest {
         SystemProfile profile = SystemProfile.createUnixProfile();
         permission = new SystemPermission(user, profile);
         permission.grantedBy(admin);
-        assertEquals("requested", SystemPermission.REQUESTED, permission.state());
+        assertEquals("requested", PermissionState.REQUESTED, permission.state());
         assertFalse("not granted", permission.isGranted());
         permission.claimedBy(admin);
         permission.grantedBy(admin);
-        assertEquals("granted", SystemPermission.UNIX_REQUESTED, permission.state());
+        assertEquals("granted", PermissionState.UNIX_REQUESTED, permission.state());
         assertFalse("granted", permission.isGranted());
         permission.claimedBy(admin);
         permission.grantedBy(admin);
-        assertEquals("granted", SystemPermission.GRANTED, permission.state());
+        assertEquals("granted", PermissionState.GRANTED, permission.state());
         assertTrue("granted", permission.isGranted());
     }
 }

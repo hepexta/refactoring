@@ -1,100 +1,93 @@
 package com.hepexta.refactoring.simplification.replaceconditwithstrategy;
 
-import com.hepexta.refactoring.loanrisk.objectcreation.strategy.LoanStrategy;
-import com.hepexta.refactoring.loanrisk.objectcreation.strategy.TermROC;
+import com.hepexta.refactoring.simplification.replaceconditwithstrategy.strategy.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Loan {
 
-    private static final long MILLIS_PER_DAY = 86400000;
-    private static final int DAYS_PER_YEAR = 365;
     private final double commitment;
     private final double outstanding;
-    private final Date expiry = null;
     private final LoanStrategy strategy;
-    private Date maturity;
-    private List<Payment> payments = new ArrayList<>();
-    private Date today = null;
     private Date start;
-    private double riskRating;
+    private Date maturity;
+    private Date expiry;
+    private List<Payment> payments = new ArrayList<>();
 
-    public Loan(LoanStrategy strategy, double commitment, Date start, Date maturity, double highRiskRating) {
+    private double riskRating;
+    private CapitalStrategy capitalStrategy;
+
+    public Loan(LoanStrategy strategy, double commitment, Date start, Date maturity, Date expiry, double highRiskRating, CapitalStrategy capitalStrategy) {
         this.riskRating = highRiskRating;
         this.maturity = maturity;
         this.start = start;
+        this.expiry = expiry;
         this.strategy = strategy;
         this.commitment = commitment;
         this.outstanding = 1;
+        this.capitalStrategy = capitalStrategy;
     }
 
     public static Loan newTermLoan(double amount, Date start, Date maturity, double highRiskRating) {
-        return new Loan(new TermROC(), amount, start, maturity, highRiskRating);
+        return new Loan(new TermROC(), amount, start, maturity, null, highRiskRating, new CapitalStrategyTermLoan());
+    }
+
+    public static Loan newRevolver(double commitment, Date start, Date expiry, double riskRating) {
+        return new Loan(new Resolver(), commitment, start, null, expiry, riskRating, new CapitalStrategyRevolver());
     }
 
     public double capital() {
-        if (expiry == null && maturity != null)
-            return commitment * duration() * riskFactor();
-        if (expiry != null && maturity == null) {
-            if (getUnusedPercentage() != 1.0)
-                return commitment * getUnusedPercentage() * duration() * riskFactor();
-            else
-                return (outstandingRiskAmount() * duration() * riskFactor())
-                        + (unusedRiskAmount() * duration() * unusedRiskFactor());
-        }
-        return 0.0;
+        return capitalStrategy.capital(this);
     }
 
     public double duration() {
-        if (expiry == null && maturity != null)
-            return weightedAverageDuration();
-        else if (expiry != null && maturity == null)
-            return yearsTo(expiry);
-        return 0.0;
+        return capitalStrategy.duration(this);
     }
 
-    private double weightedAverageDuration() {
-        double duration = 0.0;
-        double weightedAverage = 0.0;
-        double sumOfPayments = 0.0;
-        Iterator loanPayments = payments.iterator();
-        while (loanPayments.hasNext()) {
-            Payment payment = (Payment) loanPayments.next();
-            sumOfPayments += payment.amount();
-            weightedAverage += yearsTo(payment.date()) * payment.amount();
-        }
-        if (commitment != 0.0)
-            duration = weightedAverage / sumOfPayments;
-        return duration;
-    }
-
-    private double yearsTo(Date endDate) {
-        Date beginDate = (today == null ? start : today);
-        return ((endDate.getTime() - beginDate.getTime()) / MILLIS_PER_DAY) / DAYS_PER_YEAR;
-    }
-
-    private double riskFactor() {
+    public double riskFactor() {
         return riskRating*2;
     }
 
-    private double unusedRiskFactor() {
+    public double unusedRiskFactor() {
         return riskRating;
     }
 
-    private double outstandingRiskAmount() {
+    public double outstandingRiskAmount() {
         return outstanding;
     }
 
-    private double unusedRiskAmount() {
+    public double unusedRiskAmount() {
         return (commitment - outstanding);
     }
 
 
-    private float getUnusedPercentage() {
+    public float getUnusedPercentage() {
         return 4;
     }
 
     public void payment(double amount, Date date) {
         this.payments.add(Payment.payment(amount, date));
+    }
+
+    public Date getExpiry() {
+        return expiry;
+    }
+
+    public Date getMaturity() {
+        return maturity;
+    }
+
+    public double getCommitment() {
+        return commitment;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public Date getStart() {
+        return start;
     }
 }

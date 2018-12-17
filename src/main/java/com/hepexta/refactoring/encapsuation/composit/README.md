@@ -1,3 +1,12 @@
+**ENCAPSULATE COMPOSITE WITH BUILDER**
+
+Building a Composite is repetitive, complicated,
+or error-prone.
+
+`Simplify the build by letting a Builder handle the details.`
+
+--------------------------------------------------
+
 **Builders** often encapsulate **Composites** because the construction of Composites can frequently be repetitive, complicated, or error-prone. For example, to add a child node to a parent node, a client must do the following:
 
 •  Instantiate a new node
@@ -11,13 +20,13 @@ This process is error-prone because you can either forget to add a new node to a
 -------------------------------------------
 **Benefits and Liabilities**
 
-+  Reduces the repetitive and error-prone nature of Composite creation.
++  `Reduces the repetitive and error-prone nature of Composite creation.`
 
-+  Creates a loose coupling between client and Composite.
++  `Creates a loose coupling between client and Composite.`
 
-+  Allows for different representations of the encapsulated Composite or complex object.
++  `Allows for different representations of the encapsulated Composite or complex object.`
 
- –  _May not have the most intention-revealing interface._
+ –  _`May not have the most intention-revealing interface.`_
  
  **Steps:**
  

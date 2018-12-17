@@ -1,11 +1,6 @@
 package com.hepexta.refactoring.simplification.replaceconditwithstrategy;
 
-import junit.framework.TestCase;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Arrays;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -30,5 +25,17 @@ public class LoanTest {
         termLoan.payment(1000.00, november(20, 2006));
         assertEquals("duration", 2.0, termLoan.duration(), TWO_DIGIT_PRECISION);
         assertEquals("capital", 280.00, termLoan.capital(), TWO_DIGIT_PRECISION);
+    }
+
+    @Test
+    public void testRevolverSamePayments() {
+        Date start = november(20, 2003);
+        Date exparity = november(20, 2006);
+        Loan termLoan = Loan.newRevolver(LOAN_AMOUNT, start, exparity, HIGH_RISK_RATING);
+        termLoan.payment(1000.00, november(20, 2004));
+        termLoan.payment(1000.00, november(20, 2005));
+        termLoan.payment(1000.00, november(20, 2006));
+        assertEquals("duration", 2.0, termLoan.duration(), TWO_DIGIT_PRECISION);
+        assertEquals("capital", 1680.00, termLoan.capital(), TWO_DIGIT_PRECISION);
     }
 }

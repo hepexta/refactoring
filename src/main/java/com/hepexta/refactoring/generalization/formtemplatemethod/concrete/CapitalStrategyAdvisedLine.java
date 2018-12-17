@@ -4,17 +4,16 @@ import com.hepexta.refactoring.generalization.formtemplatemethod.CapitalStrategy
 import com.hepexta.refactoring.generalization.formtemplatemethod.Loan;
 
 public class CapitalStrategyAdvisedLine extends CapitalStrategy {
-    @Override
-    public double capital(Loan loan) {
-        return loan.getCommitment() * loan.getUnusedPercentage() *
-                duration(loan) * riskFactorFor(loan);
+
+    public double amountForLoan(Loan loan) {
+        return loan.getCommitment() * loan.getUnusedPercentage();
     }
 
-    private double riskFactorFor(Loan loan) {
+    public double riskFactorFor(Loan loan) {
         return loan.getRiskFactor();
     }
 
-    private double duration(Loan loan) {
+    public double duration(Loan loan) {
         return loan.getDuration();
     }
 }

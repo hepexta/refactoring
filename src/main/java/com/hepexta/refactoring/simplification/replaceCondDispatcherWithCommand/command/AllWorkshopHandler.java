@@ -4,17 +4,17 @@ import com.hepexta.refactoring.simplification.replaceCondDispatcherWithCommand.C
 import com.hepexta.refactoring.simplification.replaceCondDispatcherWithCommand.HandlerResponse;
 
 import java.util.Iterator;
+import java.util.Map;
 
-public class AllWorkshopHandler {
-    private CatalogApp catalogApp;
+public class AllWorkshopHandler extends Handler {
 
-    private static String ALL_WORKSHOPS_STYLESHEET = "allWorkshops.xsl";
+    private static final String ALL_WORKSHOPS_STYLESHEET = "allWorkshops.xsl";
 
     public AllWorkshopHandler(CatalogApp catalogApp) {
-        this.catalogApp = catalogApp;
+        super(catalogApp);
     }
 
-    public HandlerResponse getAllWorkshopsResponse() {
+    public HandlerResponse execute(Map parameters) {
         return new HandlerResponse(
                 new StringBuffer(prettyPrint(allWorkshopsData())),
                 ALL_WORKSHOPS_STYLESHEET
