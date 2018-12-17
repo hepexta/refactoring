@@ -26,3 +26,5 @@ A Template Method’s invariant behavior consists of the following:
 +  Allows subclasses to easily customize an algorithm.
 
 –  Complicates a design when subclasses must implement many methods to flesh out the algorithm.
+
+[Example](https://github.com/gunya/refactoring/pull/13/files)
