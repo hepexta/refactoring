@@ -6,28 +6,25 @@ import com.hepexta.refactoring.simplification.replaceCondDispatcherWithCommand.W
 
 import java.util.Map;
 
-public class NewWorkshopHandler {
-
-    private CatalogApp catalogApp;
-    private WorkshopManager workshopManager;
+public class NewWorkshopHandler extends Handler {
 
     public NewWorkshopHandler(CatalogApp catalogApp) {
-        this.catalogApp = catalogApp;
-        this.workshopManager = catalogApp.getWorkshopManager();
+        super(catalogApp);
     }
 
-    public HandlerResponse getNewWorkshopResponse(Map parameters) {
+    public HandlerResponse execute(Map parameters) {
         createNewWorkShop(parameters);
         return catalogApp.executeActionAndGetResponse(CatalogApp.ALL_WORKSHOPS, parameters);
     }
 
     private void createNewWorkShop(Map parameters) {
+        WorkshopManager workshopManager = catalogApp.getWorkshopManager();
         String nextWorkshopID = workshopManager.getNextWorkshopID();
-        workshopManager.addWorkshop(newWorksopContent(nextWorkshopID));
+        workshopManager.addWorkshop(newWorksopContent(workshopManager, nextWorkshopID));
         parameters.put("id", nextWorkshopID);
     }
 
-    private StringBuffer newWorksopContent(String nextWorkshopID) {
+    private StringBuffer newWorksopContent(WorkshopManager workshopManager, String nextWorkshopID) {
         return workshopManager.createNewFileFromTemplate(
                 nextWorkshopID,
                 workshopManager.getWorkshopDir(),
