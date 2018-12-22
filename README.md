@@ -2,8 +2,7 @@
 
 # Creation
 
-While every object-oriented system creates objects or object structures, the creation code is not always free of duplication, simple, intuitive, or as loosely coupled to client code as it could be. The six refactorings in this chapter target design problems in everything from constructors to overly complicated construction logic to unnecessary Singletons. While these refactorings don’t address every creational design problem you’ll likely encounter, they do address some of the most common problems.
-
+While every object-oriented system creates objects or object structures, the creation code is not always free of duplication, simple, intuitive, or as loosely coupled to client code as it could be.
 * [Replace Constructors with Creation Methods](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/loanrisk/objectcreation)
 * [Move Creation Knowledge To Factory](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/creational/htmlparser)
 * [Encapsulate Composite With Builder](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/encapsuation/composit)
