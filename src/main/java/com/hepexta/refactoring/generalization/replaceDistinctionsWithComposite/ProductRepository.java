@@ -2,10 +2,7 @@ package com.hepexta.refactoring.generalization.replaceDistinctionsWithComposite;
 
 import com.hepexta.refactoring.generalization.replaceDistinctionsWithComposite.specs.CompositeSpec;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * For the system on which this example code was based,
@@ -28,8 +25,7 @@ public class ProductRepository {
     }
 
     public List selectBy(Spec spec) {
-        Spec[] specs = { spec };
-        return selectBy(Arrays.asList(specs));
+        return selectBy(Collections.singletonList(spec));
     }
 
     public List selectBy(List specs) {
