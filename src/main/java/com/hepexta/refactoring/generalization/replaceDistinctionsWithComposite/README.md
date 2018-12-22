@@ -18,4 +18,5 @@ Benefits and Liabilities
 
 
 [Example. Part 1](https://github.com/gunya/refactoring/pull/15/files)
+
 [Example. Part 2](https://github.com/gunya/refactoring/pull/16/files)
