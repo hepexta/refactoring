@@ -46,6 +46,15 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    public void testFindByColor() {
+        List foundProducts = repository.selectBy(new ColorSpec(Color.red));
+        assertEquals(
+                "small red products below $10.00",
+                2,
+                foundProducts.size());
+    }
+
+    @Test
     public void testFindByColorSizeAndBelowPrice() {
         List specs = new ArrayList();
         specs.add(new ColorSpec(Color.red));
