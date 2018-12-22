@@ -2,6 +2,7 @@ package com.hepexta.refactoring.generalization.replaceDistinctionsWithComposite;
 
 import com.hepexta.refactoring.generalization.replaceDistinctionsWithComposite.specs.BelowPriceSpec;
 import com.hepexta.refactoring.generalization.replaceDistinctionsWithComposite.specs.ColorSpec;
+import com.hepexta.refactoring.generalization.replaceDistinctionsWithComposite.specs.CompositeSpec;
 import com.hepexta.refactoring.generalization.replaceDistinctionsWithComposite.specs.SizeSpec;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class ProductRepositoryTest {
 
     @Test
     public void testFindByColorSizeAndBelowPrice() {
-        List specs = new ArrayList();
+        CompositeSpec specs = new CompositeSpec();
         specs.add(new ColorSpec(Color.red));
         specs.add(new SizeSpec(ProductSize.SMALL));
         specs.add(new BelowPriceSpec(10.00));

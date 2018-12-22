@@ -25,16 +25,11 @@ public class ProductRepository {
     }
 
     public List selectBy(Spec spec) {
-        return selectBy(Collections.singletonList(spec));
-    }
-
-    public List selectBy(List specs) {
-        CompositeSpec spec = new CompositeSpec(specs);
         List foundProducts = new ArrayList();
         Iterator products = iterator();
         while (products.hasNext()) {
             Product product = (Product)products.next();
-            if (spec.isSatisfies(product))
+            if (spec.isSatisfiedBy(product))
                 foundProducts.add(product);
         }
         return foundProducts;
