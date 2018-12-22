@@ -3,21 +3,18 @@ package com.hepexta.refactoring.generalization.replaceDistinctionsWithComposite.
 import com.hepexta.refactoring.generalization.replaceDistinctionsWithComposite.Product;
 import com.hepexta.refactoring.generalization.replaceDistinctionsWithComposite.Spec;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class CompositeSpec {
-    private List specs;
+public class CompositeSpec implements Spec {
+    private List<Spec> specs = new ArrayList<>();
 
-    public CompositeSpec(List specs) {
-        this.specs = specs;
+    public void add(Spec spec) {
+        specs.add(spec);
     }
 
-    public List getSpecs() {
-        return specs;
-    }
-
-    public boolean isSatisfies(Product product) {
+    public boolean isSatisfiedBy(Product product) {
         boolean satisfiesAllSpecs = true;
         Iterator specifications = specs.iterator();
         while (specifications.hasNext()) {
