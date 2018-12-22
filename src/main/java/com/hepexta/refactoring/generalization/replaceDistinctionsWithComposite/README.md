@@ -15,3 +15,7 @@ Benefits and Liabilities
 +  Supports richer ways to process many objects (e.g., an OR expression).
 
 –  May require runtime checks for type safety during construction of the Composite.
+
+
+[Example. Part 1](https://github.com/gunya/refactoring/pull/15/files)
+[Example. Part 2](https://github.com/gunya/refactoring/pull/16/files)
