@@ -1,16 +1,17 @@
 package com.hepexta.refactoring.generalization.replaceHardcodedNtfWithObserver;
 
 import com.hepexta.refactoring.generalization.replaceHardcodedNtfWithObserver.result.TestResult;
-import com.hepexta.refactoring.generalization.replaceHardcodedNtfWithObserver.result.UITestResult;
 
 import java.awt.*;
 
-public class TestRunner extends Frame {   // TestRunner for AWT
+public class TestRunner extends Frame implements TestListener{   // TestRunner for AWT
     private TestResult fTestResult;
     private int count;
 
     protected TestResult createTestResult() {
-        return new UITestResult(this);   // hard-coded to UITestResult
+        TestResult testResult = new TestResult();
+        testResult.addObserver(this);
+        return testResult;
     }
     synchronized public void runSuite() {
         fTestResult = createTestResult();
@@ -19,7 +20,11 @@ public class TestRunner extends Frame {   // TestRunner for AWT
         count++;
     }
 
-    public void addError(UITestResult uiTestResult, Test test, Throwable t) {
+    public void startTest(TestResult testResult, Test test) {
+        // do smthk
+    }
+
+    public void addError(TestResult uiTestResult, Test test, Throwable t) {
         count++;
     }
 }
