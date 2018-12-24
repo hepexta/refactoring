@@ -20,3 +20,5 @@ has a preferred interface.
 +  Unifies how clients interact with alternative classes.
 
 –  Complicates a design when you can change the interface of a class rather than adapting it.
+
+[Example](https://github.com/gunya/refactoring/pull/17/files)

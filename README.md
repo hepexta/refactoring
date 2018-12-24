@@ -23,5 +23,15 @@ Much of the code we write doesn’t start out being simple. To make it simple, w
 
 Generalization is the transformation of specific code into general-purpose code. The production of generalized code frequently occurs as a result of refactoring. All seven refactorings in this chapter yield generalized code. The most common motivation for applying them is to remove duplicated code. A secondary motivation is to simplify or clarify code.
 
-* [Extract Composite](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/generalization/extractcomposite)
-* [Form Template Method](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/generalization/formtemplatemethod)
+* Subclasses in a hierarchy implement the same Composite.
+[Extract Composite](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/generalization/extractcomposite)
+* Two methods in subclasses perform similar steps in the same order, yet the steps are different.
+[Form Template Method](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/generalization/formtemplatemethod)
+* A class processes single and multiple objects using separate pieces of code.
+[Replace Distinctions With Composite](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/generalization/replaceDistinctionsWithComposite)
+* Subclasses are hard-coded to notify a single instance of another class.
+[Replace Hard-coded Notifications With Observer](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/generalization/replaceHardcodedNtfWithObserver)
+* Clients interact with two classes, one of which has a preferred interface.
+[Unify Interfaces With Adapter](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/generalization/unifyinterfacewithadapter)
+* One class adapts multiple versions of a component, library, API, or other entity.
+[Extract Adapter](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/generalization/extractadapter)

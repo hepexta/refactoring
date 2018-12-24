@@ -3,18 +3,26 @@ package com.hepexta.refactoring.generalization.extractadapter;
 import com.hepexta.refactoring.generalization.extractadapter.ex.QueryException;
 
 public class QueryClient {
-    private Query query;
+    private AbstractQuery query;
+
+    public QueryClient() {
+        setQueryVersion();
+    }
 
     public void loginToDatabase(String db, String user, String password) {
-        query = new Query();
         try {
-            if (usingSDVersion52()) {
-                query.login(db, user, password, getSD52ConfigFileName());  // Login to SD 5.2
-            } else {
-                query.login(db, user, password); // Login to SD 5.1
-            }
+            query.login(db, user, password);
+            query.doQuery();
         } catch (QueryException qe){
             // Do Something.
+        }
+    }
+
+    private void setQueryVersion() {
+        if (usingSDVersion52()) {
+            query = new QuerySD52(getSD52ConfigFileName());
+        } else {
+            query = new QuerySD51();
         }
     }
 
