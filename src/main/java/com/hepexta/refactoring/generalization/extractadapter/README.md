@@ -17,3 +17,5 @@ Systems that depend on multiple versions of a component, library, or API tend to
 +  Provides insulation from frequently changing code.
 
 –  Can shield a client from important behavior that isn’t available on the Adapter.
+
+[Example](https://github.com/gunya/refactoring/pull/18/files)
