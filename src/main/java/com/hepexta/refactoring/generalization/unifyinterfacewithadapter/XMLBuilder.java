@@ -1,10 +1,11 @@
 package com.hepexta.refactoring.generalization.unifyinterfacewithadapter;
 
-import com.hepexta.refactoring.encapsuation.composit.TagNode;
+import com.hepexta.refactoring.generalization.unifyinterfacewithadapter.adapter.TagNode;
+import com.hepexta.refactoring.generalization.unifyinterfacewithadapter.adapter.XMLNode;
 
-public class XMLBuilder extends AbstractBuilder{
-    private TagNode rootNode;
-    private TagNode currentNode;
+public class XMLBuilder extends AbstractBuilder implements XMLNode {
+    private XMLNode rootNode;
+    private XMLNode currentNode;
 
     public void addChild(String childTagName) {
         addTo(currentNode, childTagName);
@@ -14,9 +15,14 @@ public class XMLBuilder extends AbstractBuilder{
         addTo(currentNode.getParent(), siblingTagName);
     }
 
-    private void addTo(TagNode parentNode, String tagName) {
+    private void addTo(XMLNode parentNode, String tagName) {
         currentNode = new TagNode(tagName);
         parentNode.add(currentNode);
+    }
+
+    @Override
+    public void add(XMLNode child) {
+        currentNode.add(child);
     }
 
     public void addAttribute(String name, String value) {
@@ -25,5 +31,9 @@ public class XMLBuilder extends AbstractBuilder{
 
     public void addValue(String value) {
         currentNode.addValue(value);
+    }
+
+    public XMLNode getParent() {
+        return currentNode.getParent();
     }
 }
