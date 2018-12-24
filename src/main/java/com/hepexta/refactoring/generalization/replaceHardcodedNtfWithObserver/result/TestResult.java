@@ -1,6 +1,7 @@
 package com.hepexta.refactoring.generalization.replaceHardcodedNtfWithObserver.result;
 
 import com.hepexta.refactoring.generalization.replaceHardcodedNtfWithObserver.Test;
+import com.hepexta.refactoring.generalization.replaceHardcodedNtfWithObserver.TestListener;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
