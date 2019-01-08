@@ -40,5 +40,7 @@ Generalization is the transformation of specific code into general-purpose code.
 
 A refactoring that improves the protection of existing code must do so in a way that doesn’t alter the behavior of the existing code. All three refactorings in this section do just that. Your motivation for applying them may be to improve protection or it may be a standard refactoring motivation, such as to reduce duplication or to simplify or clarify code.
 
-* Subclasses in a hierarchy implement the same Composite.
+* A field’s type (e.g., a String or int) fails to protect it from unsafe assignments and invalid equality comparisons
 [Replace Type Code with Class](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/protection/replaceTypeWithClass)
+* Your code creates multiple instances of an object, and that uses too much memory or slows system performance.
+[Limit Instantiation With Singleton](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/protection/limitInstantiationWithSingleton)
