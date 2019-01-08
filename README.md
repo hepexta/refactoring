@@ -35,3 +35,10 @@ Generalization is the transformation of specific code into general-purpose code.
 [Unify Interfaces With Adapter](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/generalization/unifyinterfacewithadapter)
 * One class adapts multiple versions of a component, library, API, or other entity.
 [Extract Adapter](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/generalization/extractadapter)
+
+# Protection
+
+A refactoring that improves the protection of existing code must do so in a way that doesn’t alter the behavior of the existing code. All three refactorings in this section do just that. Your motivation for applying them may be to improve protection or it may be a standard refactoring motivation, such as to reduce duplication or to simplify or clarify code.
+
+* Subclasses in a hierarchy implement the same Composite.
+[Replace Type Code with Class](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/protection/replaceTypeWithClass)
