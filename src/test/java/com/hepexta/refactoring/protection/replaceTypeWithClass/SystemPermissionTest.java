@@ -18,22 +18,22 @@ public class SystemPermissionTest {
     @Test
     public void testGrantedBy() {
         permission.granted();
-        assertEquals("requested", SystemPermission.REQUESTED, permission.getState());
+        assertEquals("requested", PermissionState.REQUESTED, permission.getState());
         assertFalse("not granted", permission.isGranted());
         permission.claimed();
         permission.granted();
-        assertEquals("granted", SystemPermission.GRANTED, permission.getState());
+        assertEquals("granted", PermissionState.GRANTED, permission.getState());
         assertTrue("granted", permission.isGranted());
     }
 
     @Test
     public void testDeniedBy() {
         permission.granted();
-        assertEquals("requested", SystemPermission.REQUESTED, permission.getState());
+        assertEquals("requested", PermissionState.REQUESTED, permission.getState());
         assertFalse("not granted", permission.isGranted());
         permission.claimed();
         permission.denied();
-        assertEquals("granted", SystemPermission.DENIED, permission.getState());
+        assertEquals("granted", PermissionState.DENIED, permission.getState());
         assertFalse("granted", permission.isGranted());
     }
 }

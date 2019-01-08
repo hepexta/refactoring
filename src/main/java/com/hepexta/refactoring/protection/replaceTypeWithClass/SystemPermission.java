@@ -1,32 +1,27 @@
 package com.hepexta.refactoring.protection.replaceTypeWithClass;
 
 public class SystemPermission {
-    private String state;
     private boolean granted;
-
-    public final static String REQUESTED = "REQUESTED";
-    public final static String CLAIMED = "CLAIMED";
-    public final static String DENIED = "DENIED";
-    public final static String GRANTED = "GRANTED";
+    private PermissionState state;
 
     public SystemPermission() {
-        state = REQUESTED;
+        setState(PermissionState.REQUESTED);
         granted = false;
     }
 
     public void claimed() {
-        if (state.equals(REQUESTED))
-            state = CLAIMED;
+        if (getState().equals(PermissionState.REQUESTED))
+            setState(PermissionState.CLAIMED);
     }
 
     public void denied() {
-        if (state.equals(CLAIMED))
-            state = DENIED;
+        if (getState().equals(PermissionState.CLAIMED))
+            setState(PermissionState.DENIED);
     }
 
     public void granted() {
-        if (!state.equals(CLAIMED)) return;
-        state = GRANTED;
+        if (!getState().equals(PermissionState.CLAIMED)) return;
+        setState(PermissionState.GRANTED);
         granted = true;
     }
 
@@ -34,7 +29,11 @@ public class SystemPermission {
         return granted;
     }
 
-    public String getState() {
+    public PermissionState getState() {
         return state;
+    }
+
+    private void setState(PermissionState state) { // marked private
+        this.state = state;
     }
 }
