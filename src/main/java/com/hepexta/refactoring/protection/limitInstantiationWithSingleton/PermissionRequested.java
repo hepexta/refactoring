@@ -5,7 +5,16 @@ import com.hepexta.refactoring.simplification.replacestatealteredwithstate.Syste
 import com.hepexta.refactoring.simplification.replacestatealteredwithstate.state.PermissionClaimed;
 
 public class PermissionRequested extends Permission {
-    public static final String NAME = "REQUESTED";
+    private static final String NAME = "REQUESTED";
+
+    private PermissionRequested() {
+    }
+
+    private static Permission state = new PermissionRequested();
+
+    public static Permission state() {
+        return state;
+    }
 
     public String name() {
         return NAME;

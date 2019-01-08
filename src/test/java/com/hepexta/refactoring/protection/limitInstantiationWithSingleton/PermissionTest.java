@@ -6,7 +6,7 @@ import org.junit.Test;
 public class PermissionTest {
     @Test
     public void testPermission() {
-        Permission state = new PermissionRequested();
+        Permission state = PermissionRequested.state();
         Assert.assertEquals("REQUESTED", state.name());
     }
 }
