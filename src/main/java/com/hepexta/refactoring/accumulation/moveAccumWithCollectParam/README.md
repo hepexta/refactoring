@@ -36,3 +36,5 @@ For that case, a Visitor may be a better approach
  
  5.  Refactor your Composite-construction code to use the new builder. This involves making your client code what is known in Design Patterns as a Builder: Client and Builder: Director.
      _Compile and test._
+     
+[Example](https://github.com/gunya/refactoring/pull/23)     

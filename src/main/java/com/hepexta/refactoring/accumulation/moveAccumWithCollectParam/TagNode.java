@@ -1,7 +1,6 @@
 package com.hepexta.refactoring.accumulation.moveAccumWithCollectParam;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class TagNode {
@@ -19,17 +18,40 @@ public class TagNode {
     }
 
     public String toString() {
-        String result = new String();
-        result += "<" + this.name + attributes + ">";
-        Iterator it = children.iterator();
-        while (it.hasNext()) {
-            TagNode node = (TagNode)it.next();
-            result += node.toString();
+        StringBuffer result = new StringBuffer("");
+        appendContentsTo(result);
+        return result.toString();
+    }
+
+    private void appendContentsTo(StringBuffer result) {
+        writeOpenTagTo(result);
+        writeChildrenTo(result);
+        writeValueTo(result);
+        writeEndTagTo(result);
+    }
+
+    private void writeOpenTagTo(StringBuffer result) {
+        result.append("<");
+        result.append(name);
+        result.append(attributes.toString());
+        result.append(">");
+    }
+
+    private void writeChildrenTo(StringBuffer result) {
+        for (TagNode node : children) {
+            node.appendContentsTo(result);  // now recursive call will work
         }
+    }
+
+    private void writeValueTo(StringBuffer result) {
         if (!value.equals(""))
-            result += value;
-        result += "</" + this.name + ">";
-        return result;
+            result.append(value);
+    }
+
+    private void writeEndTagTo(StringBuffer result) {
+        result.append("</");
+        result.append(name);
+        result.append(">");
     }
 
     public void add(TagNode node) {

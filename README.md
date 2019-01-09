@@ -44,3 +44,10 @@ A refactoring that improves the protection of existing code must do so in a way 
 [Replace Type Code with Class](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/protection/replaceTypeWithClass)
 * Your code creates multiple instances of an object, and that uses too much memory or slows system performance.
 [Limit Instantiation With Singleton](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/protection/limitInstantiationWithSingleton)
+
+# Accumulation
+
+A good deal of code in software systems accumulates information. The refactorings in this section target the improvement of code that accumulates information within an object or across several objects.
+
+* You have a single bulky method that accumulates information to a local variable. 
+[Move Accumulation to Collecting Parameter](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/accumulation/moveAccumWithCollectParam)
