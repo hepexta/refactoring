@@ -17,6 +17,7 @@ specific classes with specific interfaces. They don’t work so
 well when they must accumulate data from classes that hold 
 diverse data and have diverse interfaces for accessing that data. 
 For that case, a Visitor may be a better approach
+
 -------------------------------------------
 **Benefits and Liabilities**
 
@@ -31,10 +32,5 @@ For that case, a Visitor may be a better approach
  2.  In the accumulation method, find an information accumulation step and apply Extract Method to extract it into a private method. Make sure the method’s return type is void, and pass the result to it as a parameter.
  
  3.  Repeat step 2 for every accumulation step, until the original code has been replaced with calls to extracted methods that accept and write to the result
- 
- 4.  Reflect on how simple your builder is for clients to use, and then make it simpler.
- 
- 5.  Refactor your Composite-construction code to use the new builder. This involves making your client code what is known in Design Patterns as a Builder: Client and Builder: Director.
-     _Compile and test._
      
 [Example](https://github.com/gunya/refactoring/pull/23)     
