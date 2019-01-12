@@ -1,6 +1,5 @@
 package com.hepexta.refactoring.accumulation.moveAccumWithVisitor;
 
-
 import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag.EndTag;
 import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag.LinkTag;
 import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag.StringNode;
@@ -25,23 +24,19 @@ public class TextExtractor {
 
         for (Node node: nodes) {
             if (node instanceof StringNode) {
-                accept((StringNode) node);
+                ((StringNode) node).accept(this);
             } else if (node instanceof LinkTag) {
-                accept((LinkTag) node);
+                ((LinkTag) node).accept(this);
             } else if (node instanceof EndTag) {
-                accept((EndTag) node);
+                ((EndTag) node).accept(this);
             } else if (node instanceof Tag) {
-                accept((Tag) node);
+                ((Tag) node).accept(this);
             }
         }
         return (results.toString());
     }
 
-    private void accept(Tag node) {
-        visitTagNode(node);
-    }
-
-    private void visitTagNode(Tag node) {
+    public void visitTagNode(Tag node) {
         String tagName = node.getTagName();
         if (tagName.equalsIgnoreCase("PRE"))
             isPreTag = true;
@@ -49,11 +44,7 @@ public class TextExtractor {
             isScriptTag = true;
     }
 
-    private void accept(EndTag node) {
-        visitEndTagNode(node);
-    }
-
-    private void visitEndTagNode(EndTag node) {
+    public void visitEndTagNode(EndTag node) {
         String tagName = node.getTagName();
         if (tagName.equalsIgnoreCase("PRE"))
             isPreTag = false;
@@ -61,11 +52,7 @@ public class TextExtractor {
             isScriptTag = false;
     }
 
-    private void accept(LinkTag node) {
-        visitLinkTagNode(node);
-    }
-
-    private void visitLinkTagNode(LinkTag node) {
+    public void visitLinkTagNode(LinkTag node) {
         if (isPreTag)
             results.append(node.getLinkText());
         else
@@ -77,11 +64,7 @@ public class TextExtractor {
         }
     }
 
-    private void accept(StringNode node) {
-        visitStringNode(node);
-    }
-
-    private void visitStringNode(StringNode node) {
+    public void visitStringNode(StringNode node) {
         if (!isScriptTag) {
             if (isPreTag)
                 results.append(node.getText());
