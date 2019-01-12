@@ -38,6 +38,10 @@ public class TextExtractor {
     }
 
     private void accept(Tag node) {
+        visitTagNode(node);
+    }
+
+    private void visitTagNode(Tag node) {
         String tagName = node.getTagName();
         if (tagName.equalsIgnoreCase("PRE"))
             isPreTag = true;
@@ -46,6 +50,10 @@ public class TextExtractor {
     }
 
     private void accept(EndTag node) {
+        visitEndTagNode(node);
+    }
+
+    private void visitEndTagNode(EndTag node) {
         String tagName = node.getTagName();
         if (tagName.equalsIgnoreCase("PRE"))
             isPreTag = false;
@@ -54,6 +62,10 @@ public class TextExtractor {
     }
 
     private void accept(LinkTag node) {
+        visitLinkTagNode(node);
+    }
+
+    private void visitLinkTagNode(LinkTag node) {
         if (isPreTag)
             results.append(node.getLinkText());
         else
@@ -66,6 +78,10 @@ public class TextExtractor {
     }
 
     private void accept(StringNode node) {
+        visitStringNode(node);
+    }
+
+    private void visitStringNode(StringNode node) {
         if (!isScriptTag) {
             if (isPreTag)
                 results.append(node.getText());
