@@ -1,7 +1,7 @@
 package com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag;
 
 import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.Node;
-import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.TextExtractor;
+import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.visitor.NodeVisitor;
 
 public class Tag implements Node {
     private String tagName;
@@ -10,7 +10,7 @@ public class Tag implements Node {
         return tagName;
     }
 
-    public void accept(TextExtractor textExtractor) {
-        textExtractor.visitTagNode(this);
+    public void accept(NodeVisitor nodeVisitor) {
+        nodeVisitor.visitTag(this);
     }
 }

@@ -4,11 +4,12 @@ import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag.EndTag;
 import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag.LinkTag;
 import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag.StringNode;
 import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag.Tag;
+import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.visitor.NodeVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextExtractor {
+public class TextExtractor implements NodeVisitor {
 
     List<Node> nodes = new ArrayList<>();
     private boolean collapse;
@@ -28,7 +29,7 @@ public class TextExtractor {
         return (results.toString());
     }
 
-    public void visitTagNode(Tag node) {
+    public void visitTag(Tag node) {
         String tagName = node.getTagName();
         if (tagName.equalsIgnoreCase("PRE"))
             isPreTag = true;
@@ -36,7 +37,7 @@ public class TextExtractor {
             isScriptTag = true;
     }
 
-    public void visitEndTagNode(EndTag node) {
+    public void visitEndTag(EndTag node) {
         String tagName = node.getTagName();
         if (tagName.equalsIgnoreCase("PRE"))
             isPreTag = false;
@@ -44,7 +45,7 @@ public class TextExtractor {
             isScriptTag = false;
     }
 
-    public void visitLinkTagNode(LinkTag node) {
+    public void visitLinkTag(LinkTag node) {
         if (isPreTag)
             results.append(node.getLinkText());
         else

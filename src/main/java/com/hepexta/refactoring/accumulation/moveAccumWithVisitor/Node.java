@@ -1,5 +1,7 @@
 package com.hepexta.refactoring.accumulation.moveAccumWithVisitor;
 
+import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.visitor.NodeVisitor;
+
 public interface Node {
-    void accept(TextExtractor textExtractor);
+    void accept(NodeVisitor nodeVisitor);
 }
