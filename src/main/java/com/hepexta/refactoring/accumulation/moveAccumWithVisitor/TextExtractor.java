@@ -1,70 +1,76 @@
 package com.hepexta.refactoring.accumulation.moveAccumWithVisitor;
 
-
 import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag.EndTag;
 import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag.LinkTag;
 import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag.StringNode;
 import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.tag.Tag;
+import com.hepexta.refactoring.accumulation.moveAccumWithVisitor.visitor.NodeVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextExtractor {
+public class TextExtractor implements NodeVisitor {
 
     List<Node> nodes = new ArrayList<>();
     private boolean collapse;
     private boolean links;
+    private boolean isPreTag;
+    private boolean isScriptTag;
+    private StringBuffer results;
 
     public String extractText()  {
-        boolean isPreTag = false;
-        boolean isScriptTag = false;
-        StringBuffer results = new StringBuffer();
+        isPreTag = false;
+        isScriptTag = false;
+        results = new StringBuffer();
 
         for (Node node: nodes) {
-            if (node instanceof StringNode) {
-                if (!isScriptTag) {
-                    StringNode stringNode = (StringNode) node;
-                    if (isPreTag)
-                        results.append(stringNode.getText());
-                    else {
-                        String text = stringNode.getText();
-                        if (getReplaceNonBreakingSpace())
-                            text = text.replace("\\a0", " ");
-                        if (getCollapse())
-                            collapse(results, text);
-                        else
-                            results.append(text);
-                    }
-                }
-            } else if (node instanceof LinkTag) {
-                LinkTag link = (LinkTag) node;
-                if (isPreTag)
-                    results.append(link.getLinkText());
-                else
-                    collapse(results, link.getLinkText());
-                if (getLinks()) {
-                    results.append("<");
-                    results.append(link.getLink());
-                    results.append(">");
-                }
-            } else if (node instanceof EndTag) {
-                EndTag endTag = (EndTag) node;
-                String tagName = endTag.getTagName();
-
-                if (tagName.equalsIgnoreCase("PRE"))
-                    isPreTag = false;
-                else if (tagName.equalsIgnoreCase("SCRIPT"))
-                    isScriptTag = false;
-            } else if (node instanceof Tag) {
-                Tag tag = (Tag) node;
-                String tagName = tag.getTagName();
-                if (tagName.equalsIgnoreCase("PRE"))
-                    isPreTag = true;
-                else if (tagName.equalsIgnoreCase("SCRIPT"))
-                    isScriptTag = true;
-            }
+            node.accept(this);
         }
         return (results.toString());
+    }
+
+    public void visitTag(Tag node) {
+        String tagName = node.getTagName();
+        if (tagName.equalsIgnoreCase("PRE"))
+            isPreTag = true;
+        else if (tagName.equalsIgnoreCase("SCRIPT"))
+            isScriptTag = true;
+    }
+
+    public void visitEndTag(EndTag node) {
+        String tagName = node.getTagName();
+        if (tagName.equalsIgnoreCase("PRE"))
+            isPreTag = false;
+        else if (tagName.equalsIgnoreCase("SCRIPT"))
+            isScriptTag = false;
+    }
+
+    public void visitLinkTag(LinkTag node) {
+        if (isPreTag)
+            results.append(node.getLinkText());
+        else
+            collapse(results, node.getLinkText());
+        if (getLinks()) {
+            results.append("<");
+            results.append(node.getLink());
+            results.append(">");
+        }
+    }
+
+    public void visitStringNode(StringNode node) {
+        if (!isScriptTag) {
+            if (isPreTag)
+                results.append(node.getText());
+            else {
+                String text = node.getText();
+                if (getReplaceNonBreakingSpace())
+                    text = text.replace("\\a0", " ");
+                if (getCollapse())
+                    collapse(results, text);
+                else
+                    results.append(text);
+            }
+        }
     }
 
     private boolean getReplaceNonBreakingSpace() {
