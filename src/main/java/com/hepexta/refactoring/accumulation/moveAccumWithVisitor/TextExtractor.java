@@ -14,57 +14,71 @@ public class TextExtractor {
     List<Node> nodes = new ArrayList<>();
     private boolean collapse;
     private boolean links;
+    private boolean isPreTag;
+    private boolean isScriptTag;
+    private StringBuffer results;
 
     public String extractText()  {
-        boolean isPreTag = false;
-        boolean isScriptTag = false;
-        StringBuffer results = new StringBuffer();
+        isPreTag = false;
+        isScriptTag = false;
+        results = new StringBuffer();
 
         for (Node node: nodes) {
             if (node instanceof StringNode) {
-                if (!isScriptTag) {
-                    StringNode stringNode = (StringNode) node;
-                    if (isPreTag)
-                        results.append(stringNode.getText());
-                    else {
-                        String text = stringNode.getText();
-                        if (getReplaceNonBreakingSpace())
-                            text = text.replace("\\a0", " ");
-                        if (getCollapse())
-                            collapse(results, text);
-                        else
-                            results.append(text);
-                    }
-                }
+                accept((StringNode) node);
             } else if (node instanceof LinkTag) {
-                LinkTag link = (LinkTag) node;
-                if (isPreTag)
-                    results.append(link.getLinkText());
-                else
-                    collapse(results, link.getLinkText());
-                if (getLinks()) {
-                    results.append("<");
-                    results.append(link.getLink());
-                    results.append(">");
-                }
+                accept((LinkTag) node);
             } else if (node instanceof EndTag) {
-                EndTag endTag = (EndTag) node;
-                String tagName = endTag.getTagName();
-
-                if (tagName.equalsIgnoreCase("PRE"))
-                    isPreTag = false;
-                else if (tagName.equalsIgnoreCase("SCRIPT"))
-                    isScriptTag = false;
+                accept((EndTag) node);
             } else if (node instanceof Tag) {
-                Tag tag = (Tag) node;
-                String tagName = tag.getTagName();
-                if (tagName.equalsIgnoreCase("PRE"))
-                    isPreTag = true;
-                else if (tagName.equalsIgnoreCase("SCRIPT"))
-                    isScriptTag = true;
+                accept((Tag) node);
             }
         }
         return (results.toString());
+    }
+
+    private void accept(Tag node) {
+        String tagName = node.getTagName();
+        if (tagName.equalsIgnoreCase("PRE"))
+            isPreTag = true;
+        else if (tagName.equalsIgnoreCase("SCRIPT"))
+            isScriptTag = true;
+    }
+
+    private void accept(EndTag node) {
+        String tagName = node.getTagName();
+        if (tagName.equalsIgnoreCase("PRE"))
+            isPreTag = false;
+        else if (tagName.equalsIgnoreCase("SCRIPT"))
+            isScriptTag = false;
+    }
+
+    private void accept(LinkTag node) {
+        if (isPreTag)
+            results.append(node.getLinkText());
+        else
+            collapse(results, node.getLinkText());
+        if (getLinks()) {
+            results.append("<");
+            results.append(node.getLink());
+            results.append(">");
+        }
+    }
+
+    private void accept(StringNode node) {
+        if (!isScriptTag) {
+            if (isPreTag)
+                results.append(node.getText());
+            else {
+                String text = node.getText();
+                if (getReplaceNonBreakingSpace())
+                    text = text.replace("\\a0", " ");
+                if (getCollapse())
+                    collapse(results, text);
+                else
+                    results.append(text);
+            }
+        }
     }
 
     private boolean getReplaceNonBreakingSpace() {
