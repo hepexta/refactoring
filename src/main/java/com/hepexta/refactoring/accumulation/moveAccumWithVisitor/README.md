@@ -21,3 +21,5 @@ visit each class to accumulate the information.`
 –  A new visitable class requires a new accept method along with a new visit method on each Visitor.
 
 –  May break encapsulation of visited classes.
+
+[Example](https://github.com/gunya/refactoring/pull/24)  
