@@ -23,15 +23,7 @@ public class TextExtractor {
         results = new StringBuffer();
 
         for (Node node: nodes) {
-            if (node instanceof StringNode) {
-                ((StringNode) node).accept(this);
-            } else if (node instanceof LinkTag) {
-                ((LinkTag) node).accept(this);
-            } else if (node instanceof EndTag) {
-                ((EndTag) node).accept(this);
-            } else if (node instanceof Tag) {
-                ((Tag) node).accept(this);
-            }
+            node.accept(this);
         }
         return (results.toString());
     }
