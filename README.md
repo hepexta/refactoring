@@ -51,3 +51,5 @@ A good deal of code in software systems accumulates information. The refactoring
 
 * You have a single bulky method that accumulates information to a local variable. 
 [Move Accumulation to Collecting Parameter](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/accumulation/moveAccumWithCollectParam)
+* A method accumulates information from heterogeneous classes. 
+[Move Accumulation with Visitor](https://github.com/gunya/refactoring/tree/master/src/main/java/com/hepexta/refactoring/accumulation/moveAccumWithVisitor)
