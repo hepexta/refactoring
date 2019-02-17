@@ -18,3 +18,5 @@ that implements an Observer interface.`
 –  Complicates a design when you have cascading notifications.
 
 –  May cause memory leaks when observers aren’t removed from their subjects.
+
+[Example](https://github.com/gunya/refactoring/pull/19/files)
