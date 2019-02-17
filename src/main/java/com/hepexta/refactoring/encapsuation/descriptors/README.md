@@ -12,7 +12,7 @@ Make the class constructors non-public and let clients create instances of them 
 +  Reduces the `conceptual weight` of a package by hiding classes that don’t need to be public.
 +  Helps enforce the mantra `program to an interface, not an implementation`.
 
-Liabilities
+# Liabilities
 +  Requires new/updated Creation Methods when new kinds of instances must be created.
 +  Limits customization when clients can only access a Factory’s binary code, not its source code.
 
