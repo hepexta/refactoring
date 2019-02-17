@@ -12,4 +12,4 @@ A primary motivation for refactoring from a type code to a class
 is to make code type-safe. One way to do that is to constrain the 
 possible values that may be assigned to or equated with a field or variable.
 
-[Example](https://github.com/gunya/refactoring/pull/21)
+[Example](https://github.com/gunya/refactoring/pull/21/files)
