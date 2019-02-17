@@ -17,4 +17,4 @@ by not instantiating certain objects over and over again.
 At that point, you should run the profiler to check how memory usage and performance have been affected. 
 Hopefully, things have improved. If not, you may decide to undo these steps
 
-[Example](https://github.com/gunya/refactoring/pull/22)
+[Example](https://github.com/gunya/refactoring/pull/22/files)
